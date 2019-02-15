@@ -4,7 +4,9 @@ Debian、Ubuntu系列
 基于apt-get方式：
 apt-get install 软件名
 （还有基于aptitude方式的，配置不同的安装源即可）
+
 ***卸载软件***
+基于apt-get方式：
 sudo apt-get autoremove --purge 软件名
 参数说明：
 sudo——获取 root 权限 
