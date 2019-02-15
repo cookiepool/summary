@@ -1,3 +1,20 @@
+
+Debian、Ubuntu系列
+***安装软件***
+基于apt-get方式：
+apt-get install 软件名
+（还有基于aptitude方式的，配置不同的安装源即可）
+***卸载软件***
+sudo apt-get autoremove --purge 软件名
+参数说明：
+sudo——获取 root 权限 
+apt-get——执行安装卸载功能的软件 
+autoremove——告诉 apt-get 我们所要做的操作是移除软件 
+–purge——注意这前面是两个短划线，这个参数是告诉他们要完整的干净的彻底的移除
+eg: sudo apt-get autoremove --purge php5-mysql
+
+
+以下为Linux通用命令
 ***切换目录***
 cd 文件夹路径
 eg: cd /var/www
@@ -9,6 +26,15 @@ eg: ls
 ***查看文件里面的内容信息***
 cat 文件路径
 eg: cat /var/www/index.html
+
+***创建目录***
+mkdir [选项] 文件夹路径
+选项说明：
+　　-m=mode为目录指定访问权限，与chmod类似。
+　　-p　　如果目录已经存在，则不会有错误提示。若父目录不存在，将会创建父目录。该选项常用于创建级联目录。
+　　-v　　为每个目录显示提示信息。
+eg: mkdir -p /var/www/log
+
 
 ***删除文件或者文件夹***
 rm rf 文件夹或文件路径
