@@ -79,3 +79,34 @@ eg: cp /test1/file1 /test3/file2
 
 如将/test1目录下的file1复制到/test3 目录，并将文件名改为file2,可输入以下命令：
 eg: mv /test1/file1 /test3/file2
+
+
+***linux下查看mysql端口号***
+进入mysql： mysql -u root -p
+查看端口号： show global variables like 'port';
+
+
+***在Linux Debian下安装node.js方法***
+1、更新系统和安装所需软件
+apt-get update -y
+apt-get install -y build-essential curl
+
+2、安装最新版本v8.1.2
+curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -   //注这个只能安装8.x版本的nodejs
+
+注：如果这里提醒sudo命令不存在则需要安装sudo或者配置变量环境
+2.1、安装sudo
+	apt-get install sudo
+2.2、 如果/etc/sudoers.d 文件存在则说明你的系统已经安装啦，只不过没有配置环境 
+	当你使用sudo去执行一个程序时，处于安全的考虑，这个程序将在一个新的、最小化的环境中执行，也就是说，诸如PATH这样的环境变量，在sudo命令下已经被重置成默认状态了。所以当一个刚初始化的PATH变量中不包含你所要运行的程序所在的目录，用sudo去执行，你就会得到"command not found"的错误提示。
+
+	要想改变PATH在sudo会话中的初始值，用文本编辑器打开/etc/sudoers文件，找到"secure_path"一行，当你执行sudo 命令时，"secure_path"中包含的路径将被当做默认PATH变量使用。
+
+	添加所需要的路径(如 /usr/local/bin）到"secure_path"下，在开篇所遇见的问题就将迎刃而解。
+	Defaults    secure_path = /sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin
+
+3、安装nodejs
+	apt-get install nodejs
+
+4、检查版本
+	node -v
