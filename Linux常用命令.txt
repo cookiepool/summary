@@ -38,7 +38,7 @@ mkdir [选项] 文件夹路径
 eg: mkdir -p /var/www/log
 
 
-***删除文件或者文件夹***
+***删除文件或者文件夹***（删除文件夹要加-r命令）
 rm rf 文件夹或文件路径
 eg： rm -rf /var/www/index.html
 注：-r 就是向下递归，不管有多少级目录，一并删除
