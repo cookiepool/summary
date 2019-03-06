@@ -1,0 +1,19 @@
+注：在使用这些命令前请安装好Git软件，地址：https://git-scm.com/downloads
+1、在建好的目录下来初始化一个git项目
+    git init
+2、添加文件
+    2.1、添加所有文件
+        git add .
+    2.2、添加指定文件
+        git add 文件名
+        eg:  git add readme.md
+3、提交到仓库
+    git commit -m "说明"
+    eg: git commit -m "Update"
+4、查看仓库状态
+    4.1、如果你修改了某个文件，我们可以通过以下命令来查看状态：
+    git status
+    4.2、如果想知道某个文件具体修改了哪些内容，用以下命令
+    git diff 文件名
+    eg: git diff readme.md
+    注：在确认修改无误后需要再次对修改的文件做git add 和 git commit命令来提交到仓库。
