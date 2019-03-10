@@ -17,3 +17,12 @@
     git diff 文件名
     eg: git diff readme.md
     注：在确认修改无误后需要再次对修改的文件做git add 和 git commit命令来提交到仓库。
+5、显示从最近到最远的提交日志
+    git log
+6、版本回退
+    在Git中，用HEAD表示当前版本，也就是最新的提交，上一个版本就是HEAD^，上上一个版本就是HEAD^^，当然往上100个版本写100个^比较容易数不过来，所以写成HEAD~100。
+    git reset --hard HEAD^
+7、不想回退版本
+    找到回退之前的版本的commit版本值（sha1值），来进行反悔操作。
+    git reset --hard commit值
+    eg: git reset --hard f8dad     注: 这个值只需要取前五位即可。
