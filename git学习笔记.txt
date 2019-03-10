@@ -26,3 +26,6 @@
     找到回退之前的版本的commit版本值（sha1值），来进行反悔操作。
     git reset --hard commit值
     eg: git reset --hard f8dad     注: 这个值只需要取前五位即可。
+8、查看回退记录
+    前面的反悔操作是建立在你还没关闭git bash窗口看得到回退前那个最新版本的commit id值，如果我们关闭了窗口后想反悔怎么办，使用以下命令来查看
+    git relog
