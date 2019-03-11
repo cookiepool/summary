@@ -30,3 +30,29 @@
     前面的反悔操作是建立在你还没关闭git bash窗口看得到回退前那个最新版本的commit id值，如果我们关闭了窗口后想反悔怎么办，使用以下命令来查看
     git relog
 补充：Git的版本库里存了很多东西，其中最重要的就是称为stage（或者叫index）的暂存区，还有Git为我们自动创建的第一个分支master，以及指向master的一个指针叫HEAD。
+9、查看工作区和版本库里面最新版本的区别
+    git diff HEAD -- 文件名
+    eg: git diff HEAD -- readme.txt
+    注：每次修改，如果不用git add到暂存区，那就不会加入到commit中。
+10、让文件回到最近一次git commit或git add时的状态。
+    git checkout -- 文件名
+    eg: git checkout -- readme.txt  //把readme.txt文件在工作区的修改全部撤销
+11、删除版本库的文件
+    git rm 文件名
+    eg: git rm test.txt
+    之后再使用git commit -m "description"，文件就从版本库里面删除了
+12、把误删的文件恢复到最新版本
+    git checkout HEAD -- test.txt //这个恢复的前提是没有执行commit命令才行。
+    注意：git checkout -- test.txt 针对的是rm test.txt
+          如果是git rm test.txt, 参看之前的版本回退, git reset -- hard 文件名
+13、将本地仓库推送到远端仓库
+    13.1、建立远端地址
+    git remote add origin 你远端的github地址
+    eg:  git remote add origin git@github.com:michaelliao/learngit.git
+    13.2、推送到远端仓库
+    git push -u origin master //推送到主分支
+    以后可以直接：git push origin master
+14、把创建好的远程仓库上克隆到本地
+    git clone 远程地址
+    git clone git@github.com:michaelliao/gitskills.git
+    
