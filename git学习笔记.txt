@@ -110,3 +110,31 @@ git里面重要概念--分支（具体概念参考教程：https://www.liaoxuefeng.com/wiki/001373
 	git stash pop  //恢复的同时把stash内容也删了
 
 	git stash apply stash@{0} //恢复指定的stash,这个stash@{0}参数可以从git stash list查看
+23、features分支
+当我们在开发新功能时需要新建一个分支，但是在开发完过后不要这个功能了，需要删除这个未合并的分支。
+    git branch -D feature //删除未合并的分支需要使用大D。
+
+24、可以抓取和推送的origin的地址
+    git remote -v //如果没有推送权限，就看不到push的地址。
+
+25、推送到分支
+    25.1、推送到主分支
+    git push origin master
+    25.2、推送到其它分支
+    git push origin dev
+
+26、多人协作开发
+    这个比较详细，这个参考教程：https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/0013760174128707b935b0be6fc4fc6ace66c4f15618f8d000
+    总结为一下几步：
+
+    查看远程库信息，使用git remote -v；
+
+    本地新建的分支如果不推送到远程，对其他人就是不可见的；
+
+    从本地推送分支，使用git push origin branch-name，如果推送失败，先用git pull抓取远程的新提交；
+
+    在本地创建和远程分支对应的分支，使用git checkout -b branch-name origin/branch-name，本地和远程分支的名称最好一致；
+
+    建立本地分支和远程分支的关联，使用git branch --set-upstream branch-name origin/branch-name；
+
+    从远程抓取分支，使用git pull，如果有冲突，要先处理冲突。
