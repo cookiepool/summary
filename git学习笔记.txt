@@ -55,4 +55,36 @@
 14、把创建好的远程仓库上克隆到本地
     git clone 远程地址
     git clone git@github.com:michaelliao/gitskills.git
+
+
+git里面重要概念--分支（具体概念参考教程：https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/001375840038939c291467cc7c747b1810aab2fb8863508000）
+
+15、创建分支
+    比如我们要创建dev分支：
+    git checkout -b dev
+    注：git checkout命令加上-b参数表示创建并切换，相当于以下两条命令：
+    git branch dev
+    git checkout dev
+16、切换分支和查看当前分支
+    16.1、切换
+    git checkout master
+    16.2、查看当前分支
+    git branch  //git branch命令会列出所有分支，当前分支前面会标一个*号。
+注：你切换到分支上过后，就可以专注自己分支的开发，使用git add和git commit来进行操作就可以了。提交过后你切换到master分支是无法查看到刚才你在分支上提交的内容的。
+
+17、合并分支
+    git merge dev   //合并指定分支到当前分支(比如这个在master下合并dev)
+18、删除分支
+    git branch -d dev //删除dev分支
+19、分支合并冲突
+    一般来说在合并分支时与master存在冲突的情况下只能手动去把文件修改一致才行。合并过程冲突的话，可以使用cat 文件名来查看冲突的内容，冲突部分会用<<<<<<< HEAD这样的字样标注。
+    具体操作见教程：https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/001375840202368c74be33fbd884e71b570f2cc3c0d1dcf000
+
+
+20、分支管理策略
+前面的分支操作属于Fast Forward模式，这种模式下，删除分支后，会丢掉分支信息，接下来不使用这种模式。
+使用这个模式的其它操作几乎都一样，只是在合并的时候加一个参数和一个commit信息。如下：
+    git merge --no-ff -m 'no-ff' dev
+
+
     
