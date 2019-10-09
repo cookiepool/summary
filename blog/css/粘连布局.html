@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+    body, html {
+      height: 100%;
+    }
+    #wraper {
+      min-height: 100%;
+      background-color: pink;
+      text-align: center;
+      overflow: hidden;
+    }
+    #wraper .main {
+      padding-bottom: 50px;
+    }
+    #footer {
+      height: 50px;
+      background-color: greenyellow;
+      text-align: center;
+      margin-top: -50px;
+    }
+  </style>
+</head>
+<body>
+  
+  <div id="wraper">
+    <div class="main">
+      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempora tempore, id placeat cupiditate doloribus temporibus consectetur mollitia magnam ipsa quae ut nisi, eos voluptates repudiandae, eius sint nobis. Molestiae, ipsa!
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas asperiores facilis corrupti iure. Praesentium ab, eius dolorem quibusdam ex adipisci optio reprehenderit beatae, natus consequatur, nam in incidunt aliquam architecto?
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, eligendi. Nulla, in! Dignissimos culpa aliquid eaque cumque ea doloribus quaerat recusandae iure, vero maxime nobis harum deserunt architecto? Aliquam, ipsa?
+      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quia enim explicabo optio eveniet inventore eos laudantium quas, at quo recusandae! Perferendis tempora, porro ipsa corporis laboriosam accusantium placeat ad itaque.
+      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Alias ipsum et numquam praesentium rerum beatae repellat, exercitationem veniam in. Ducimus molestiae cumque fugiat repudiandae possimus natus quos laudantium pariatur minus?
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam reiciendis iste nulla porro quidem ducimus illum blanditiis aspernatur, officiis minima error, tenetur id reprehenderit ad possimus voluptate odio veritatis ipsam.
+      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut veritatis aperiam dolores, ipsam suscipit molestias eaque doloribus voluptates modi, labore sapiente vel dolorem iure esse doloremque error voluptatum itaque praesentium.
+      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quidem officiis ipsam non odio pariatur libero necessitatibus aut fugiat inventore, beatae dolore mollitia porro saepe nesciunt incidunt earum voluptatibus et adipisci.
+    </div>
+  </div>
+  <div id="footer"></div>
+
+
+
+  <script>
+    function asyncFunc() {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve(2000);
+        }, 2000)
+      });
+    }
+    async function test() {
+      let a = await asyncFunc();
+      return a;
+    }
+    
+    test().then((res) => {
+      console.log(res);
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>两列自适应布局</title>
+  <style>
+    /* 浮动版 */
+    /* .parent {
+      overflow: hidden;
+      zoom: 1;
+    }
+    .left {
+      float: left;
+      margin-right: 20px;
+    }
+    .right {
+      overflow: hidden;
+      zoom: 1;
+    } */
+
+    /* flex版 */
+    .parent {
+      display: flex;
+    }
+    .left {
+      flex: 0;
+    }
+    .right {
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="parent" style="background-color: lightgrey;">
+    <div class="left" style="background-color: lightblue;">
+      <p>left</p>
+    </div>
+    <div class="right"  style="background-color: lightgreen;">
+      <p>right</p>
+      <p>right</p>
+    </div>        
+  </div>
+</body>
+</html>
