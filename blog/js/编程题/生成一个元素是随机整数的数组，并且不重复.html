@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>两列自适应布局</title>
+  <style>
+    .container {
+      background-color: aquamarine;
+    }
+    .one {
+      background-color: beige;
+      width: 100px;
+      height: 100px;
+      float: left;
+    }
+    .two {
+      background-color: blueviolet;
+      width: 100px;
+      height: 100px;
+      float: left;
+    }
+    .three {
+      background-color: cadetblue;
+      width: 100px;
+      height: 100px;
+      float: left;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="one">one</div>
+    <div class="two">two</div>
+    <div class="three">three</div>
+  </div>
+
+  <script type="text/javascript">
+    let arr = new Array();
+
+    function generateArray(arr, length, min, max) {
+      let randNum = Math.round(Math.random() * (max - min)) + min;
+
+      // 使用indexOf来判断
+      // if(arr.indexOf(randNum) !== 1) {
+      //   arr.push(randNum);
+      // }
+
+      // 使用includes来判断，注意这个不能判断对象数组
+      if(!arr.includes(randNum)) {
+        arr.push(randNum);
+      }
+    
+      return arr.length == length ? arr : generateArray(arr, length, min, max);
+    }
+    generateArray(arr, 5 , 2, 32);
+    console.log(arr);
+
+    let arr1 = new Array(5);
+
+    function buildArray(length = 5, min = 2, max = 32) {
+      if(length < 0) return;
+
+      let randNum = Math.round(Math.random() * (max - min)) + min;
+      if(!arr1[length]) {
+        if(!arr1.includes(randNum)) {
+          arr1[length] = randNum;
+          buildArray(length - 1);
+        }else {
+          buildArray(length);
+        }
+      }
+    }
+
+    buildArray(arr1.length - 1);
+    console.log(arr1);
+  </script>
+</body>
+</html>
