@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>两列自适应布局</title>
+  <style>
+    .container {
+      background-color: aquamarine;
+    }
+    .one {
+      background-color: beige;
+      width: 100px;
+      height: 100px;
+      float: left;
+    }
+    .two {
+      background-color: blueviolet;
+      width: 100px;
+      height: 100px;
+      float: left;
+    }
+    .three {
+      background-color: cadetblue;
+      width: 100px;
+      height: 100px;
+      float: left;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="one">one</div>
+    <div class="two">two</div>
+    <div class="three">three</div>
+  </div>
+
+  <script type="text/javascript">
+    // 去除字符串两边的空格
+    let str1 = '  Hello World!   ';
+
+    if(String.prototype.trim === undefined) {
+      String.prototype.trim = function() {
+        return this.replace(/^\s*|\s*$/g, '');
+      }
+    }
+
+    console.log(str1.trim());
+
+    // 去除字符串所有的空格
+    let str2 = '  Hello World!   ';
+    
+    console.log(str2.split(' ').join(''));
+
+    // 封装一个去除字符串的函数
+    /**
+     * 去除字符串空格
+     * @param str {String} 需要处理的字符串
+     * @param type {String} 去除字符串哪部分的空格
+     * @return {String} 处理后的字符串
+    **/
+    function removeSpacing(str, type='all') {
+      let regList = {
+        all: /\s+/g,
+        bothSides: /^\s*|\s*$/g,
+        left: /^\s*/,
+        right: /\s*$/,
+      }
+      if(!str) return '请传入字符串！';
+      if(type === 'middle') {
+        let leftSpace = str.match(/^\s*/g)[0];
+        let rightSpace = str.match(/\s*$/g)[0];
+        return leftSpace + str.replace(regList['all'], '') + rightSpace;
+      }else {
+        return str.replace(regList[type], '');
+      }
+    }
+
+    let str3 = '  Hello World! ';
+    let result = removeSpacing('', 'middle');
+    console.log(result);
+  </script>
+</body>
+</html>
