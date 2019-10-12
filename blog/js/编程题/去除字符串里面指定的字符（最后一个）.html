@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>两列自适应布局</title>
+  <style>
+    .container {
+      background-color: aquamarine;
+    }
+    .one {
+      background-color: beige;
+      width: 100px;
+      height: 100px;
+      float: left;
+    }
+    .two {
+      background-color: blueviolet;
+      width: 100px;
+      height: 100px;
+      float: left;
+    }
+    .three {
+      background-color: cadetblue;
+      width: 100px;
+      height: 100px;
+      float: left;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="one">one</div>
+    <div class="two">two</div>
+    <div class="three">three</div>
+  </div>
+
+  <script type="text/javascript">
+    // 去除指定的字符串中的字符（最后一个）
+    let str = 'we are the world!We are the children!';
+
+    function removeLastCharacter(char, str) {
+      let index = 0;
+      let tempArray = str.split('');
+      // for(let i = 0; i < tempArray.length; i++) {
+      //   if(tempArray[i] === 'e') {
+      //     index = i;
+      //   }
+      // }
+      // 查找最后一个字符可以用自带的API方法：lastIndexOf
+      index = tempArray.lastIndexOf(char);
+      tempArray.splice(index, 1);
+      return tempArray.join('');
+    }
+
+    console.log(removeLastCharacter('e', str));
+
+    // 第二种比较高级的，使用正则表达式，但是没看懂-_-
+    let str2 = 'we are the world!We are the children!';
+
+    function delLast(char, str) {
+      let reg =new RegExp(`${char}(?=([^${char}]*)$)`)
+      return str.replace(reg,'')
+    }
+
+    console.log(delLast('e', str2));
+
+    // 还有一种暴力的方法
+    let str3 = 'we are the world!We are the children!';
+
+    function delLast_1(char, str) {
+      return str.split('').reverse().join('').replace(char, '').split('').reverse().join('');
+    }
+
+    console.log(delLast_1('e', str3));
+  </script>
+</body>
+</html>
