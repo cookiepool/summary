@@ -18,6 +18,9 @@ export function reduce(a, b) {
   return a - b;
 }
 
+const c = 'hello';
+export c;
+
 // export default function add(a, b) {
 //   return a + b;
 // }
