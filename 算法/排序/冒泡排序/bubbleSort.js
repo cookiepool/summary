@@ -17,7 +17,7 @@
 // console.log(arr);
 
 // 错误写法二
-let arrTest = [12, 32, 3, 45, 65, 23, 43, 99, 56];
+let arrTest = [12, 12, 89, 33, 6, 8, 99, 23];
 let count = 0;
 function bubbleSort(arrTest) {
   for (let i = 0; i < arrTest.length - 1; i++) {
@@ -34,3 +34,24 @@ function bubbleSort(arrTest) {
 bubbleSort(arrTest);
 console.log(arrTest);
 console.log(count);
+
+let arrTestAnotner = [12, 12, 89, 33, 6, 8, 99, 23];
+let countAnother = 0;
+function bubbleSortAnother(arrTestAnotner) {
+  let len = arrTestAnotner.length - 1;
+  for (let i = 0; i < len; ++i) {
+    for (let j = 0; j < len - i; ++j) {
+      countAnother++;
+      if (arrTestAnotner[j] > arrTestAnotner[j + 1]) {
+        [arrTestAnotner[j], arrTestAnotner[j + 1]] = [
+          arrTestAnotner[j + 1],
+          arrTestAnotner[j]
+        ];
+      }
+    }
+  }
+}
+
+bubbleSortAnother(arrTestAnotner);
+console.log(arrTestAnotner);
+console.log(countAnother);
