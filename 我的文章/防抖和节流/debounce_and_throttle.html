@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>debounce_and_throttle</title>
+</head>
+<body>
+  <button id="b_and_t">防抖和节流</button>
+
+  <script>
+    window.onload = function() {
+      let elm = document.getElementById('b_and_t');
+      elm.addEventListener('click', debounce_throttle(function(e){
+        console.log('防抖和节流');
+      }), false);
+    }
+
+    function debounce_throttle(callback, timeSlot=1500) {
+      let timer = null;
+      let lastTime = 0;
+      return function() {
+        let now = new Date().getTime();
+        // 如果用户点击的太过频繁，那么就触发防抖
+        if(now - lastTime < timeSlot) {
+          clearTimeout(timer);
+          timer = setTimeout(() => {
+            lastTime = now;
+            callback.apply(this, arguments);
+          }, timeSlot)
+        }
+        // 否则就触发节流
+        else {
+          lastTime = now;
+          callback.apply(this, arguments);
+        }
+      }
+    }
+  </script>
+</body>
+</html>
