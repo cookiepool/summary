@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>debounce</title>
+</head>
+<body>
+  <button id="debounce">点我防抖</button>
+  <script>
+    window.onload = function() {
+      let elm = document.getElementById('debounce');
+
+      elm.addEventListener('click', debounce(function(e) {
+        console.log(e.target) // 输出按钮本身
+        console.log(this) // 输出按钮本身，如果你上面的debounce函数里面写的箭头函数，那么输出为window对象
+        console.log('防抖');
+      }), false);
+    }
+
+    // 定义防抖函数
+    function debounce(callback) {
+      // 定义一个定时器标记
+      let timer = null;
+
+      return function() {
+        // 没触发一次事件就把前一个定时器清除
+        clearTimeout(timer);
+
+        // 如果一直连续触发，就始终进不了setTimeout
+        timer = setTimeout(() => {
+          // 这个地方建议用apply，不要用call，不然上面的e.target是取不到值的。
+          callback.apply(this, arguments);
+        }, 1000)
+      }
+    }
+  </script>
+</body>
+</html>

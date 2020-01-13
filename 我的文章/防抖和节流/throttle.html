@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>throttle</title>
+</head>
+<body>
+  <button id="throttle">点我节流</button>
+
+  <script>
+    window.onload = function() {
+      let elm = document.getElementById('throttle');
+
+      elm.addEventListener('click', throttle(function() {
+        console.log(this);
+        console.log('节流')
+      }), false)
+    }
+
+    // 定义节流函数
+    function throttle(callback) {
+      // 定义一个初始时间，我们用来判断用户点击的两次的时间间隔
+      let lastTime = 0;
+
+      return function() {
+        // 获取当前时间戳（毫秒）
+        let now = new Date().getTime();
+        // 如果当前时间减去最初的时间比我们规定的时间间隔大时，我们才触发一次
+        if(now - lastTime >= 1500) {
+          callback.apply(this, arguments);
+          lastTime = now;
+        }
+      }
+    }
+    
+    // 类数组对象转换成数组的几种方法
+    function hello(name, age) {
+      console.log(arguments);
+
+      console.log(Array.prototype.slice.apply(arguments));
+
+      console.log(Array.from(arguments));
+
+      console.log([...arguments]);
+    }
+
+    hello('lee', 23);
+  </script>
+</body>
+</html>
