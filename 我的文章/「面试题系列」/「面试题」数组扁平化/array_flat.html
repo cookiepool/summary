@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let arr1 = [
+      [2, 3, 4],
+      [[2, 3], 3, 5],
+      45,
+      [{'lee': 34}]
+    ];
+
+    console.log(arr1.flat());
+    console.log(arr1.flat(2));
+    console.log(arr1.flat(Infinity));
+
+    // 手写实现
+    let arr2 = [1, 2, 3, [4, 5, [6, 7, [9, 10]]], 'lee', {name: 'haoo'}];
+
+    function flatArray1(data) {
+      let arr_temp = [];
+
+      for(let item of data) {
+        if(Array.isArray(item)) {
+          // 递归的调用flatArray
+          arr_temp.push(...arguments.callee(item))
+        }else {
+          arr_temp.push(item);
+        }
+      }
+
+      return arr_temp;
+    }
+
+    console.log(flatArray1(arr2));
+
+    // 使用reduce实现
+    let arr3 = [1, 2, 3, [4, 5, [6, 7, [9, 10]]], 'lee', {name: 'haoo'}];
+
+    // 注意reduce的几个参数，acum代表累计器，意思是你的回调函数执行了多少次，这个就保存了最后那一次的结果。
+    // 回调函数后面的参数，这儿是[],代表acum的初始值，因为我们最终要返回一个数组，那么我们操作就建立在数组上来操作，然后递归的去调用。
+    function flatArray2(data) {
+      return data.reduce((acum, current, curretIndex, arrSelf) => {
+        // 递归的调用
+        return acum.concat(Array.isArray(current) ? flatArray2(current) : current)
+      }, [])
+    }
+
+    console.log(flatArray2(arr3))
+
+    // 使用栈的思想来实现
+    let arr4 = [1, 2, 3, [4, 5, [6, 7, [9, 10]]], 'lee', {name: 'haoo'}];
+
+    function flatArray3(data) {
+      let result = [];
+
+      // 建立一个栈，并保存好初始数据
+      let stack = [].concat(data);
+
+    }
+
+    console.log(flatArray3(arr4));
+  </script>
+</body>
+</html>

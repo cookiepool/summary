@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let arr1 = [1, 1, '23', '23', undefined, undefined, true, true, null, null, {}, {}, NaN, NaN];
+    // 使用双层循环
+    for(let i = 0, len = arr1.length; i < len; i++) {
+      for(let j = i + 1; j < len; j++) {
+        if(arr1[i] === arr1[j]) {
+          arr1.splice(j, 1);
+          // splice 会改变数组长度，所以要将数组长度 len 和下标 j 减一
+          len--;
+          j--;
+        }
+      }
+    }
+    console.log(arr1);
+
+    let arr2 = [1, 1, '23', '23', undefined, undefined, true, true, null, null, {}, {}, NaN, NaN];
+    // 使用Set
+    console.log(Array.from(new Set(arr2)));
+
+    // 使用indexOf
+    let arrTemp = [];
+    for(let value of arr2) {
+      if(arrTemp.indexOf(value) === -1) {
+        arrTemp.push(value);
+      }
+    }
+    console.log(arrTemp);
+
+    // 使用object
+    let arr3 = [1, 1, '23', '23', undefined, undefined, true, true, null, null, {}, {}, NaN, NaN];
+    let obj = {};
+    let result = arr3.filter(function(item, index, arrSelf) {
+      return obj.hasOwnProperty((typeof item) + item) ? false : (obj[(typeof item) + item] = true);
+    })
+
+    console.log(result);
+    console.log(obj);
+  </script>
+</body>
+</html>
