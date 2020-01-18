@@ -1,3 +1,26 @@
+
+
+```
+    const arr = [1, 2, 3, 4, [1, 2, 3, [1, 2, 3, [1, 2, 3]]], 5, "string", { name: "弹铁蛋同学" }];
+    // concat + 递归
+    function flat(arr) {
+      let arrResult = [];
+      arr.forEach((item) => { // 注意，这儿一定要用箭头函数，用function声明的函数的话，你下面的arguments.callee指向的就不是flat了，而是这个地方的回调函数。
+        if (Array.isArray(item)) {
+          arrResult = arrResult.concat(arguments.callee(item));   // 递归
+          // 或者用扩展运算符
+          // arrResult.push(...arguments.callee(item));
+        } else {
+          arrResult.push(item);
+        }
+      });
+      return arrResult;
+    }
+    flat(arr)
+```
+
+
+
 # 展开一层数组的方案
 - concat + ...展开运算符
 
