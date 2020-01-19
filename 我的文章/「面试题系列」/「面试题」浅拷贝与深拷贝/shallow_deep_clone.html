@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let obj_origin = {
+      name: 'lee',
+      age: 26,
+      male: true,
+      info: {
+        major: 'science',
+        other: {
+          last: 'hello'
+        }
+      },
+      grades: [
+        90,
+        100,
+        {
+          total: 230
+        }
+      ]
+    }
+    // 循环引用
+    obj_origin.obj_origin = obj_origin;
+    // 赋值操作，一层拷贝都做不到，完全的引用。
+    let obj_refer = obj_origin;
+
+    /* // 使用Object.assign()
+    // let obj_clone = Object.assign({}, obj_origin);
+    // console.log(obj_clone);
+    // obj_clone.name = 'haoo';
+    // obj_clone.info.major = 'computer';
+    // console.log(obj_clone);
+    // console.log(obj_origin);
+
+    // 循环赋值
+    // let obj_clone = {};
+    // for(let key in obj_origin) {
+    //   // 加个判断，忽略继承的属性
+    //   if(obj_origin.hasOwnProperty(key)) {
+    //     obj_clone[key] = obj_origin[key];
+    //   }
+    // }
+    // obj_clone.name = 'haoo';
+    // obj_clone.info.major = 'computer';
+    // console.log(obj_clone);
+    // console.log(obj_origin);
+
+    // 浅拷贝+递归
+    // function simple_deep_clone(data) {
+    //   let result = {};
+    //   for(let key in data) {
+    //     if(data.hasOwnProperty(key)) {
+    //       typeof data[key] === 'object' ?
+    //         result[key] = simple_deep_clone(data[key]) :
+    //         result[key] = data[key];
+    //     }
+    //   }
+
+    //   return result;
+    // }
+
+    // let obj_clone = simple_deep_clone(obj_origin);
+    // obj_clone.name = 'haoo';
+    // obj_clone.info.major = 'computer';
+    // console.log(obj_clone);
+    // console.log(obj_origin); */
+
+    // 把数组区分出来同时消除循环引用的问题
+    // 定义一个Map对象
+    let map = new Map();
+    
+    function deep_clone(data) {
+      // 判断是不是对象，这儿用call也可以
+      if(Object.prototype.toString.apply(data) !== '[object Object]') {
+        return data;
+      }
+
+      // 判断传过来的data是对象还是数组，做一下区分
+      let result = Array.isArray(data) ? [] : {};
+
+            
+      // 判断有没有拷贝过
+      if(map.get(data)) {
+        return map.get(data);
+      }
+
+      // 没拷贝的话做个记录
+      map.set(data, result);
+
+      // 开始循环操作拷贝
+      for(let key in data) {
+        // hasOwnProperty数组也可以用，不怕
+        if(data.hasOwnProperty(key)) {
+          typeof data[key] === 'object' ?
+            result[key] = deep_clone(data[key]) :
+            result[key] = data[key];
+        }
+      }
+
+      return result;
+    }
+
+    let obj_clone = deep_clone(obj_origin);
+    obj_clone.name = 'haoo';
+    obj_clone.info.major = 'computer';
+    console.log(obj_clone);
+    console.log(obj_origin);
+  </script>
+</body>
+</html>
