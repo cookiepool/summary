@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 使用栈的思想
+    let arr5 = [1, 2, 3, [4, 5, [6, 7, [9, 10]]], 'haoo', {name: 'lee'}];
+
+    function flatArray5(data) {
+      let result = [];
+
+      let stack = [].concat(data);
+
+      while(stack.length > 0) {
+        const value = stack.pop();
+        if(Array.isArray(value)) {
+          stack.push(...value);
+        }else {
+          result.unshift(value);
+        }
+      }
+
+      return result;
+    }
+
+    console.log(flatArray5(arr5));
+
+    // 通过传入参数来控制降维层数
+    let arr6 = [1, 2, 3, [4, 5, [6, 7, [9, 10]]], 'haoo', {name: 'lee'}];
+
+    function flatArray6(data, num = 1) {
+      if(typeof num !== 'number') {
+        return data;
+      }
+
+      return num > 0 ?
+        data.reduce((acum, current, currentIndex, arrSelf) => {
+          return acum.concat(Array.isArray(current) ? flatArray6(current, num - 1) : current);
+        }, []) : data.slice();
+    }
+
+    console.log(flatArray6(arr6, '55'));
+
+    // 在原型链上实现flatArray
+    let arr7 = [1, 2, 3, [4, 5, [6, 7, [9, 10]]], 'haoo', {name: 'lee'}];
+
+    Array.prototype.flatArray = function(num = 1) {
+      if(!Number(num) || Number(num) <= 0) {
+        return this;
+      }
+
+      let arr = this.slice();
+
+      while(num > 0) {
+        if(arr.some(value => Array.isArray(value))) {
+          arr = Array.prototype.concat.apply([], arr);
+        }else {
+          break;
+        }
+        num--;
+      }
+
+      return arr;
+    }
+
+    console.log(arr7.flatArray(Infinity));
+
+    // 在原型链上实现flatArrayEmpty，忽略空位
+    let arr8 = [1, 2, , , 3, [4, 5, [6, 7, [9, 10]]], 'haoo', {name: 'lee'}];
+
+    Array.prototype.flatArrayEmpty = function(num = 1) {
+      if(!Number(num) || Number(num) <= 0) {
+        return this;
+      }
+
+      if(num > 0) {
+        return this.reduce((acum, curr, currIdx, arrSelf) => {
+          return acum.concat(Array.isArray(curr) ? curr.flatArrayEmpty(--num) : curr);
+        }, [])
+      }else {
+        return this.slice();
+      }
+    }
+
+    console.log(arr8.flatArrayEmpty(Infinity))
+
+  </script>
+</body>
+</html>
