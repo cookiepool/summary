@@ -60,6 +60,26 @@
 
     let animal = new Animal('dog');
     animal.printInfo();
+    console.log(animal.hasOwnProperty('printInfo'));
+    console.log(animal.hasOwnProperty('animalName'));
+    console.log(animal.animalName);
+
+    class Dog extends Animal {
+      animalLegs = 0;
+
+      constructor(name, legs) {
+        super(name);
+        this.animalLegs = legs;
+      }
+
+      printInfo() {
+        console.log(this.animalName);
+        console.log(this.animalLegs);
+      }
+    }
+
+    let newDog = new Dog('diandian', 4);
+    newDog.printInfo();
   </script>
 </body>
 </html>
