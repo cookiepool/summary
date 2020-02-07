@@ -5,3 +5,6 @@
 
 ## 3、Wiki里面是相关文章收集
 
+## 4、2020的flags
+![](https://imgkr.cn-bj.ufileos.com/0be16020-8588-473c-bbfe-8d20852fcf38.png)
+
