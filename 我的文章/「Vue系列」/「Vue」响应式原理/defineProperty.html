@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>defineProperty</title>
+</head>
+<body>
+  <script>
+    let obj = {};
+
+    let setter_getter_temp; // 临时变量的存取
+
+    Object.defineProperty(obj, 'name', {
+      value: 'lee',
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+
+    Object.defineProperty(obj, 'age', {
+      enumerable: true,
+      configurable: true,
+      get() {
+        console.log('获取了年龄');
+        return setter_getter_temp;
+      },
+
+      set(value) {
+        console.log('设置了新的年龄: '+ value);
+        setter_getter_temp = value;
+      }
+    })
+
+    obj.age = 27;
+    console.log(obj.age);
+
+    /* let target = null;
+    target = function() {
+      console.log('hello');
+    }
+    let arr = [];
+    arr.push(target);
+    console.log(arr);
+    arr[0]();
+    target = null;
+    arr[0](); */
+
+    let target = null;
+    target = {name: 'lee'}
+    let arr = [];
+    arr.push(target);
+    console.log(arr);
+    console.log(arr[0]);
+    target = 'nani';
+    console.log(arr[0]);
+    console.log(target);
+  </script>
+</body>
+</html>
