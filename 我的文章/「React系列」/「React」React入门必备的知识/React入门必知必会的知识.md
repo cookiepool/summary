@@ -105,10 +105,19 @@ export default function FuncComponentTest(props) {
 
 1、优点
 无需实例化，无生命周期，只负责渲染，性能更好。如果你的组件没有涉及到内部状态，只是用来渲染数据，那么就用函数式组件，性能较好。
+无需绑定当前作用域，我们使用类组件时需要在constructor或者在JSX的事件里面使用bind来绑定this。
+```
+this.sayHi = this.sayHi.bind(this)
+
+<a onClick={this.sayHi}></a>
+
+或
+<a onClick={this.sayHi.bind(this)}>Say Hi</a>
+```
 
 2、缺点
 上面的优点相应就会带来缺点
-没有实例化，无法使用ref；没有生命周期方法；shouldComponentUpdate方法没有，重复渲染都没法避免。
+没有实例化，this为undefined，无法使用refs；没有生命周期方法；shouldComponentUpdate方法没有，重复渲染都没法避免。
 
 #### PureComponent（纯组件）
 React v15.3.0中新增的一个特性。
@@ -141,16 +150,128 @@ export default PureComponentTest;
 ### 参考资料
 
 [React 中的各种组件](https://zhuanlan.zhihu.com/p/30659051)
+
 [React PureComponent 使用指南](https://wulv.site/2017-05-31/react-purecomponent.html)
+
 [React 的性能优化（一）当 PureComponent 遇上 ImmutableJS](https://juejin.im/post/59cdaaccf265da066f6ac83b)
+
 [【react总结（一）】:一次性彻底弄懂组件（函数式组件、PureComponent、React.memo、高阶组件）](https://juejin.im/post/5d118039e51d4556db694a40)
+
 [React 中的五种组件形式](https://juejin.im/post/596d65d66fb9a06bae1e19e2)
+
 [【DailyENJS第7期】掌握 React 函数式组件](https://juejin.im/post/5d46f1eb6fb9a06b122f2087)
+
 [React（二）：类组件、函数式组件](https://juejin.im/post/5c0dfa265188257a5a2514d6)
+
+[[译]React函数组件和类组件的差异](https://juejin.im/post/5cb707626fb9a0689d6f9797)
+
+[React中函数式声明组件](https://segmentfault.com/a/1190000006180667)
 
 ## 12、怎么进行React的路由管理
 使用React开发单页面项目肯定是要用到路由，目前主要是使用react-router，我在查阅的时候有替代方案，叫`@reach/router`,[链接](https://github.com/reach/router)，react-router不像Vue的路由可以进行集中管理，有时候用起来十分分散。
 
+如果你想实现类似vue-router一样的管理方式，可以使用react-router-config这个小工具来实现，下面我给出示例代码
+```
+import React from 'react';
+import { Redirect } from 'react-router-dom'; // 使用这个一定要引入上面那句话import React from 'react';
+
+import Index from '../components/Index';
+import LifeCircleFunction from '../components/LifeCircleFunction';
+import FunctionComponentTest from '../components/components_test/FuncComponentTest';
+import PureComponentTest from '../components/components_test/PureComponentTest';
+
+const routes = [
+  {
+    path: '/',
+    exact: true,
+    render: () => {
+      return <Redirect to={"/index"}></Redirect>
+    }
+  },
+  {
+    path: '/index',
+    exact: true,
+    component: Index
+  },
+  {
+    path: '/lifecirclefunction',
+    exact: true,
+    component: LifeCircleFunction
+  },
+  {
+    path: '/functomponenttest/:id',
+    exact: true,
+    component: FunctionComponentTest
+  },
+  {
+    path: '/purecomponenttest',
+    exact: true,
+    component: PureComponentTest
+  }
+]
+
+export default routes;
+```
+```
+import React from 'react';
+import logo from './logo.svg';
+// 这里建议写HashRouter as Router这句话，当你想切换成BrowserRouter时不需要到处去修改
+import { HashRouter as Router, Link, Switch } from 'react-router-dom';
+
+import { renderRoutes } from 'react-router-config';
+import routes from './router/router';
+
+function App() {
+  return (
+      <div className="App">
+        <Router>
+          <header className="App-header">
+            <img src={logo} className="App-logo" alt="logo" />
+          </header>
+          <hr></hr>
+          {/* 跳转按钮 */}
+          {/* 使用Link标签时必须使用 HashRouter或者bowserRouter包裹*/}
+          <Link to="/lifecircle">
+            <button>生命周期函数测试</button>
+          </Link>
+          <Link to="/functomponenttest/11235?name=lee">
+            <button>函数式组件</button>
+          </Link>
+          <Link to="/purecomponenttest">
+            <button>纯组件</button>
+          </Link>
+
+          {/* 路由 */}
+          <Switch>
+            { renderRoutes(routes) }
+          </Switch>
+        </Router>
+      </div>
+  );
+}
+
+export default App;
+```
+
+### 编程式跳转
+Vue的vue-router除了借助<router-link>标签实现跳转外，还可以借助$router对象实现编程跳转。
+
+在React里面我们需要借助history对象（非浏览器的那个history）来实现跳转，比如它的push、replace、go方法等。这儿我们可以借助props来获取到history，注意根组件，一般是叫App这个，this.props对象是空的。
+
+我们可以这样写
+```
+this.props.history.push('/about');
+```
+
+如果你使用的函数组件，如果你想使用history实例的方法，你可以使用useHistory这个钩子，react的版本必须大于16.8才行。
+```
+import { useHistory } from 'react-router-dom';
+```
+
+```
+let history = useHistory();
+history.push('/about');
+```
 ### 参考资料
 [React Router Config（React 集中配置式路由）](https://blog.csdn.net/roamingcode/article/details/95235079)
 
@@ -161,3 +282,94 @@ export default PureComponentTest;
 [官方教程](https://reacttraining.com/react-router/web/)
 
 [React-Router动态路由设计最佳实践](https://segmentfault.com/a/1190000011765141)
+
+[react-router-dom中的BrowserRouter和HashRouter，link与Navlink](https://www.cnblogs.com/bokeyanghao/p/11576284.html)
+
+[react-router/packages/react-router-config](https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config)
+
+[react-router-config 使用与路由鉴权](https://segmentfault.com/a/1190000020084779)
+
+[react-router-config 插件使用和分析](https://blog.csdn.net/qq_33325899/article/details/87270488)
+
+[最新 React Router 全面整理](https://zhuanlan.zhihu.com/p/101129994)
+
+[react-router二次封装实现Vue-router使用方式](https://github.com/wangjinshen/React-router)
+
+[React Router 5.1.0使用useHistory做页面跳转导航](https://majing.io/posts/10000050881248)
+
+## 13、我该怎么去管理我的CSS代码
+最基本的方式就是单独写在css文件里面然后再直接在组件里面import，但是有个问题就是，如果我的类命重复了，就会出现样式被覆盖冲突的情况。这里有几种方式可以实现。
+
+- 使用命名空间 + BEM 规范
+- CSS in JS
+- CSS Module
+
+我在上面几个方案中一般用的CSS Module，BEM这种一般用于UI组件库比较多，CSS in JS在社区中很多开发者也用。关于这几种方案，已经有大佬详细讲过，见参考资料
+
+[面试官：你怎么优雅管理 CSS？](https://juejin.im/post/5e15b9086fb9a0480d170469)
+
+[如何在React中优雅的写CSS](https://juejin.im/post/5df63f41518825121c3314e8)
+
+## 14、React怎么实现懒加载
+React在16.6版本中加入了一个方法和一个组件来进行懒加载，其中一个是React.lazy()，还有个是React.Suspense。使用方式为
+```
+// 该组件是动态加载的
+const OtherComponent = React.lazy(() => import('./OtherComponent'));
+
+function MyComponent() {
+  return (
+    // 显示 <Spinner> 组件直至 OtherComponent 加载完成
+    <React.Suspense fallback={<Spinner />}>
+      <div>
+        <OtherComponent />
+      </div>
+    </React.Suspense>
+  );
+}
+```
+
+- 注意：这个特性需要浏览器支持Promise。
+
+## 15、开发单页面我应该怎么选择脚手架
+如果你不想过多的折腾，那你选择官方的create-ract-app基本足够了，这是官方的脚手架做了许多限制，你想自己配置的话还是很麻烦，自己搭建环境还是比较麻烦。
+
+通过方法脚手架生成的项目虽然做了限制，如果你确实想要自己配置，可以通过`npm run eject`这个命令来把配置暴露出来，但是这个是不可逆的。
+
+有没有什么工具既可以不破坏react-scripts，同时又能自己配置的工具呢，可以试一试社区出的react-app-rewired这个工具，使用这个工具的话最好结合customize-cra这个工具一起。
+
+首先我们安装好这个两个工具
+```
+npm react-app-rewired customize-cra -D
+```
+修改package.json的scripts内容为以下：
+```
+"scripts": {
+  "start": "react-app-rewired start",
+  "build": "react-app-rewired build",
+  "test": "react-app-rewired test",
+  "eject": "react-scripts eject"
+}
+```
+然后在你的项目根目录新建一个名为`config-overrides.js`的文件，这里我以按需加载ant-design为例
+```
+/* config-overrides.js */
+
+// 这个文件是用来给create-react-app添加额外配置的
+const { override, fixBabelImports } = require('customize-cra');
+
+module.exports = override(
+  fixBabelImports('import', {  // 按需加载ant-design
+    libraryName: 'antd',
+    libraryDirectory: 'es',
+    style: 'css',
+  }),
+);
+
+```
+
+### 参考资料
+[如何扩展 Create React App 的 Webpack 配置](https://juejin.im/post/5a5d5b815188257327399962)
+
+[react-app-rewired](https://github.com/timarney/react-app-rewired)
+
+[customize-cra](https://github.com/arackaf/customize-cra)
