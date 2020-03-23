@@ -88,6 +88,8 @@ class MyComponent extends React.Component {
 }
 ```
 #### 函数式组件（无状态组件）
+> React 16.8过后，结合Hooks也可以进行状态管理了
+
 使用声明函数的方式来创建组件。
 ```
 import React from 'react';
@@ -333,7 +335,7 @@ function MyComponent() {
 - 注意：这个特性需要浏览器支持Promise。
 
 ## 15、开发单页面我应该怎么选择脚手架
-如果你不想过多的折腾，那你选择官方的create-ract-app基本足够了，这是官方的脚手架做了许多限制，你想自己配置的话还是很麻烦，如果自己搭建环境还是比较麻烦。
+如果你不想过多的折腾，那你选择官方的create-ract-app基本足够了，但是官方的脚手架做了许多限制，如果自己搭建环境的话，必须对Webpack周围的生态比较熟悉才行。
 
 通过方法脚手架生成的项目虽然做了限制，如果你确实想要自己配置，可以通过`npm run eject`这个命令来把配置暴露出来，但是这个是不可逆的。
 
@@ -375,3 +377,6 @@ module.exports = override(
 [react-app-rewired](https://github.com/timarney/react-app-rewired)
 
 [customize-cra](https://github.com/arackaf/customize-cra)
+
+## 最后
+本文后期会不时地更新，如果有纰漏欢迎大家指正，如果觉得不错，请大家点个赞再走吧！
