@@ -274,6 +274,10 @@ import { useHistory } from 'react-router-dom';
 let history = useHistory();
 history.push('/about');
 ```
+
+- 补充
+1、在使用react-router时，为了精准匹配，请使用<Switch>组件和exact关键字。
+
 ### 参考资料
 [React Router Config（React 集中配置式路由）](https://blog.csdn.net/roamingcode/article/details/95235079)
 
