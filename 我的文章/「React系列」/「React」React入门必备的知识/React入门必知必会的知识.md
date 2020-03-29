@@ -382,5 +382,36 @@ module.exports = override(
 
 [customize-cra](https://github.com/arackaf/customize-cra)
 
+## 16、redux react-redux redux-saga redux-thunk这些都是啥？
+
+- redux
+一个用于集中状态管理的工具，目前react上主要使用这个，当然Mobx也有开发者在用。
+
+![](https://imgkr.cn-bj.ufileos.com/a688bd76-6f6c-4a5a-a03e-560f51fadfe7.jpg)
+![](https://imgkr.cn-bj.ufileos.com/318d182f-4de0-4e52-b046-106490caea3e.png)
+
+- react-redux
+如果把store直接集成到React应用的顶层props里面，只要各个子组件能访问到顶层props就行了。
+```
+  <顶层组件 store={store}>
+    <App />
+  </顶层组件>
+```
+
+- redux-saga 与 redux-thunk
+用来管理redux的异步请求和数据
+
+
+### 参考资料
+[技术胖Redux免费视频教程 2万字长文章 24集视频](https://juejin.im/post/5d3e3c42e51d45590a445c37)
+
+[一篇文章总结redux、react-redux、redux-saga](https://juejin.im/post/5ce0ae0c5188252f5e019c2c)
+
+[异步方案选型redux-saga 和 redux-thunk（async/await）](https://blog.csdn.net/liwusen/article/details/79677827)
+
+[Redux与它的中间件：redux-thunk，redux-actions，redux-promise，redux-saga](https://www.cnblogs.com/vvjiang/p/9505646.html)
+
+[React组件设计实践总结05 - 状态管理](https://juejin.im/post/5ce3ee436fb9a07f070e0220)
+
 ## 最后
 本文后期会不时地更新，如果有纰漏欢迎大家指正，如果觉得不错，请大家点个赞再走吧！
