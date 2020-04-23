@@ -98,7 +98,7 @@ getJSON('/post/1.json').then(function(post) {
 这里我们第一次调用getJSON，如果resolve(成功)，进入回调函数执行`return getJSON(post.commentURL)`，这句话执行过后，返回一个新的Promise对象，如果状态变为resolved则执行funcA，如果状态变为rejected则执行funcB。
 
 ## Promise.prototype.catch()
-Promise.prototype.catch方法是.then(null, rejection)的别名，用于指定发生错误时的回调函数。当状态变成rejected的时候就会执行catch里面的回调函数。
+Promise.prototype.catch方法是.then(null, rejection)的别名，用于指定发生错误时的回调函数。当状态变成rejected的时候就会执行catch里面的回调函数。catch方法跟then一样，执行过后返回的是一个新的Promise对象。
 
 ```
 promiseObj.then((res) => {
@@ -229,3 +229,4 @@ timeoutPromise(taskPromise, 1000).then(function(value){
 ## 参考资料
 [面试问到 Promise，这样回答最完美了](https://mp.weixin.qq.com/s/9sLj0Ylii6mhkAiqiZpvzw)
 [看这一篇就够了！浅谈ES6的Promise对象](https://www.jianshu.com/p/c98eb98bd00c)
+[前端 Promise 常见的应用场景](https://juejin.im/post/5e9c03bcf265da47e22f2d01)
