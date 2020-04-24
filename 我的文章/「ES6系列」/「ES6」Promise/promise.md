@@ -120,6 +120,8 @@ promiseObj.then((res) => {
 - Promise对象的错误具有冒泡性质，会一直向后传递，直到被捕获为止，也就是说错误总会被下一个catch语句捕获。
 
 ## Promise.prototype.finally()
+这个也是最新的标准，暂时不要大面积使用
+
 finally方法用于指定不管Promise对象最后状态如何，都会执行的操作。
 ```
 promiseObj.then((res) => {
@@ -226,7 +228,218 @@ timeoutPromise(taskPromise, 1000).then(function(value){
   console.log("发生超时", error);
 });
 ```
+
+## Promise.resolve()
+Promise.resolve(value)方法返回一个以给定值解析后的Promise 对象。
+
+Promise.resolve()里面的参数分成几种情况。
+
+### 参数是一个 Promise 实例
+如果参数是 Promise 实例，那么Promise.resolve将不做任何修改、原封不动地返回这个实例
+
+```
+let p1 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    reject('fail');
+  }, 1000);
+});
+
+let p2 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve(p1);
+  }, 2000);
+});
+
+p2.then((res) => {
+  console.log(res);
+}).catch((err) => {
+  console.log(err);
+});
+```
+最终输出的是`fail`。
+
+### 参数不是具有then方法的对象，或根本就不是对象
+```
+Promise.resolve("Success").then(function(value) {
+  // Promise.resolve方法的参数，会同时传给回调函数。
+  console.log(value); // "Success"
+}, function(value) {
+  // 不会被调用
+});
+```
+
+### 不带有任何参数
+Promise.resolve()方法允许调用时不带参数，直接返回一个resolved状态的 Promise 对象。如果希望得到一个 Promise 对象，比较方便的方法就是直接调用Promise.resolve()方法。
+
+```
+Promise.resolve().then(function () {
+  console.log('two');
+});
+console.log('one');
+// one two
+```
+
+### 参数是一个thenable对象
+thenable对象指的是具有then方法的对象,Promise.resolve方法会将这个对象转为 Promise 对象，然后就立即执行thenable对象的then方法。
+
+```
+let thenable = {
+  then: function(resolve, reject) {
+    resolve(42);
+  }
+};
+let p1 = Promise.resolve(thenable);
+p1.then(function(value) {
+  console.log(value);  // 42
+});
+```
+
+## Promise.reject()
+Promise.reject()方法返回一个带有拒绝原因的Promise对象。
+
+```
+new Promise((resolve,reject) => {
+  reject(new Error("出错了"));
+});
+// 等价于
+Promise.reject(new Error("出错了"));
+
+Promise.reject(new Error('fail')).catch((err) => { console.log(err) });
+```
+
+## Promise.allSettled()
+ES2020新增的标准，暂时不要随便用
+
+有时候，我们不关心异步操作的结果，只关心这些操作有没有结束。这时，ES2020 引入Promise.allSettled()方法就很有用。如果没有这个方法，想要确保所有操作都结束，就很麻烦。
+
+Promise.allSettled跟Promise.all类似, 其参数接受一个Promise的数组, 返回一个新的Promise, 唯一的不同在于, 它不会进行短路, 也就是说当Promise全部处理完成后,我们可以拿到每个Promise的状态, 而不管是否处理成功。
+
+假如有这样的场景：一个页面有三个区域，分别对应三个独立的接口数据，使用 Promise.all 来并发请求三个接口，如果其中任意一个接口出现异常，状态是reject,这会导致页面中该三个区域数据全都无法出来，显然这种状况我们是无法接受，Promise.allSettled的出现就可以解决这个痛点
+
+```
+Promise.allSettled([
+  Promise.reject({ code: 500, msg: '服务异常' }),
+  Promise.resolve({ code: 200, list: [] }),
+  Promise.resolve({ code: 200, list: [] })
+]).then(res => {
+  console.log(res)
+  /*
+    0: {status: "rejected", reason: {…}}
+    1: {status: "fulfilled", value: {…}}
+    2: {status: "fulfilled", value: {…}}
+  */
+  // 过滤掉 rejected 状态，尽可能多的保证页面区域数据渲染
+  RenderContent(
+    res.filter(el => {
+      return el.status !== 'rejected'
+    })
+  )
+})
+```
+
+- 注意：这儿有一个不使用allSettled可以解决上面问题的方法
+一般情况我们都是这样写的，如果其中一个接口炸了，那么最终返回的值是rejected那个值，并且会执行catch中的回调函数。
+
+```
+let p1 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    reject({status: 'fail'});
+  }, 1000);
+});
+
+let p2 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve({status: 'ok'});
+  }, 2000);
+});
+
+let p3 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve({status: 'ok'});
+  }, 2500)
+});
+
+Promise.all([p1, p2, p3]).then((res) => {
+  console.log(res);
+}).catch((err) => {
+  console.log(err);
+});
+```
+我们修改一下写法可以实现类似allSettled的效果。
+```
+Promise.all([
+  p1.catch(err => err),
+  p2.catch(err => err), 
+  p3.catch(err => err)
+]).then((res) => {
+  console.log(res);
+}).catch((err) => {
+  console.log(err);
+});
+```
+最终会执行到then方法里面，并且输出的值为
+```
+[
+  {status: "fail"}
+  {status: "ok"}
+  {status: "ok"}
+]
+```
+
+## 补充-async/await
+async 函数返回的是一个 Promise 对象。async 函数（包含函数语句、函数表达式、Lambda表达式）会返回一个 Promise 对象，如果在函数中 return 一个直接量，async 会把这个直接量通过 Promise.resolve() 封装成 Promise 对象
+
+下面是async/await的一般用法
+```
+function delayFunc() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(2333);
+    }, 2000)
+  });
+}
+
+async function testTwo() {
+  console.log('start');
+  let awaitValue = await delayFunc();
+  console.log('end');
+
+  return awaitValue;
+}
+
+testTwo().then((res) => {
+  console.log(res);
+});
+```
+上面是模拟一个异步请求，首先会先打印`start`，然后等待2秒过后会打印`end`，之后打印`2333`。上面局部变量awaitValue的值就是2333，最后return的时候使用Promise.resolve(2333)把它封装成了Promise对象。
+
+注意上面的delayFunc函数中的代码可能会返回reject，如果我们把resolve(2333)改成reject(2333), 这时我们会发现console.log('end')，不会打印，相当于这之后的代码没有执行了。因为后面报错了，但是又没有捕获错误。
+
+![](https://imgkr.cn-bj.ufileos.com/c0e1902d-7e13-434d-94cd-1a08184f41fe.png)
+
+捕获错误可以这样，在testTwo()方法后面加catch语句
+```
+testTwo().then((res) => {
+  console.log(res);
+}).catch((err) => {
+  console.log(err);
+});
+```
+这样做之后不会在浏览器报错了，但是await后面的end还是不会打印，没有执行，所以我们一般这样做，在delayFunc方法后面直接写上catch，像这样：
+```
+let awaitValue = await delayFunc().catch((err) => {
+  console.log(err);
+});
+```
+这样就可以打印出后面的end了，表明后面的代码也执行了。
+
+[promise与async await](https://juejin.im/post/5b7c021af265da43623c26c6)
+[理解 JavaScript 的 async/await](https://segmentfault.com/a/1190000007535316)
+[async 函数的含义和用法](http://www.ruanyifeng.com/blog/2015/05/async.html)
+
+
 ## 参考资料
 [面试问到 Promise，这样回答最完美了](https://mp.weixin.qq.com/s/9sLj0Ylii6mhkAiqiZpvzw)
 [看这一篇就够了！浅谈ES6的Promise对象](https://www.jianshu.com/p/c98eb98bd00c)
 [前端 Promise 常见的应用场景](https://juejin.im/post/5e9c03bcf265da47e22f2d01)
+[你真的懂 Promise 吗？](https://mp.weixin.qq.com/s/zcZwMRg9nymQrp4n6FEldA)
