@@ -443,3 +443,7 @@ let awaitValue = await delayFunc().catch((err) => {
 [看这一篇就够了！浅谈ES6的Promise对象](https://www.jianshu.com/p/c98eb98bd00c)
 [前端 Promise 常见的应用场景](https://juejin.im/post/5e9c03bcf265da47e22f2d01)
 [你真的懂 Promise 吗？](https://mp.weixin.qq.com/s/zcZwMRg9nymQrp4n6FEldA)
+
+[Promise/async/Generator实现原理解析](https://mp.weixin.qq.com/s/AEzKv0ZL9NgyIuCq_y6Kkg)
+[源码速读！一看就会、一写就废的 Promise 实现](https://mp.weixin.qq.com/s/CsUvmRLYJpX1If9Tr0KXrg)
+[Promise实现原理（附源码）](https://mp.weixin.qq.com/s/sevk4IhJQth16srklqQydg)
