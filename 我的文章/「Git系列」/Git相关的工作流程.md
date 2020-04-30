@@ -27,6 +27,12 @@ Hotfix叫热修复分支，除了是计划外创建的以外，hotfix分支与re
 
 > 命名：Hotfix/1.2.3 后面跟对应的版本号
 
+- 流程图
+![](https://imgkr.cn-bj.ufileos.com/8bb22466-eb83-4834-8372-ed0d7b692dfc.png)
+
+# Github flow工作流程
+
+
 # 参考资料
 [GitFlow流程](https://www.jianshu.com/p/4948dc76c52c)
 
