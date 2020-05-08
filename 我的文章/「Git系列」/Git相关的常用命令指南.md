@@ -144,6 +144,17 @@ git里面重要概念--分支（具体概念参考教程：[廖雪峰教程-分�
 > `git push --set-upstream origin 分支名`
 > `eg: git push --set-upstream origin dev`
 
+#### 2、将本地代码推送到远端仓库（首次推送）
+```
+// 添加远程地址
+git remote add origin [远端地址]
+
+egg: git remote add origin https://github.com/cookiepool/medical-web-proj.git
+
+// 提交到远端
+git push -u origin master (master分支)
+```
+
   [1]: git%E9%87%8C%E9%9D%A2%E9%87%8D%E8%A6%81%E6%A6%82%E5%BF%B5--%E5%88%86%E6%94%AF%EF%BC%88%E5%85%B7%E4%BD%93%E6%A6%82%E5%BF%B5%E5%8F%82%E8%80%83%E6%95%99%E7%A8%8B%EF%BC%9Ahttps://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/001375840038939c291467cc7c747b1810aab2fb8863508000%EF%BC%89
   [2]: %E5%85%B7%E4%BD%93%E6%93%8D%E4%BD%9C%E8%A7%81%E6%95%99%E7%A8%8B%EF%BC%9Ahttps://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/001375840202368c74be33fbd884e71b570f2cc3c0d1dcf000
   [3]: https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/0013760174128707b935b0be6fc4fc6ace66c4f15618f8d000
