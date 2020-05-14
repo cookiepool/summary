@@ -179,6 +179,15 @@ git checkout -b hotfix/1.0.1 master
 ```
 比如上面的命令，我如果当前在dev分支下，但是我想建立基于master的分支，想上面那样操作就可以了。
 
+#### 5、远程仓库已经没有相关的分支了，但是本地还有
+首先你可以执行以下命令来查看相关的分支信息
+```
+git remote show origin
+```
+对比过后，使用以下命令来同步一下就可以了
+```
+git remote prune origin
+```
 
 [1]: git%E9%87%8C%E9%9D%A2%E9%87%8D%E8%A6%81%E6%A6%82%E5%BF%B5--%E5%88%86%E6%94%AF%EF%BC%88%E5%85%B7%E4%BD%93%E6%A6%82%E5%BF%B5%E5%8F%82%E8%80%83%E6%95%99%E7%A8%8B%EF%BC%9Ahttps://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/001375840038939c291467cc7c747b1810aab2fb8863508000%EF%BC%89
 [2]: %E5%85%B7%E4%BD%93%E6%93%8D%E4%BD%9C%E8%A7%81%E6%95%99%E7%A8%8B%EF%BC%9Ahttps://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/001375840202368c74be33fbd884e71b570f2cc3c0d1dcf000
