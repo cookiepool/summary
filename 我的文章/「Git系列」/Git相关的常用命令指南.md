@@ -205,7 +205,23 @@ git branch --set-upstream-to=origin/<branch> feature/dev-workbench
 git branch --set-upstream-to=origin/feature/dev-workbench
 ```
 
+#### 7、比较远端分支和本地分支的区别
 
+```
+git log -p feature/dev-workbench-gzt..origin/feature/dev-workbench-gzt
+```
+
+这个命令会告诉你两个分支修改的文件，以及两个文件的代码差异
+
+### 8、比较两个分支的差异
+
+```
+git diff branch1 branch2 --stat // 显示出所有有差异的文件列表
+
+git diff branch1 branch2 文件命（路径） // 显示指定文件的详细差异
+
+git diff branch1 branch2 // 显示出所有有差异的文件的详细差异
+```
 
 
 
