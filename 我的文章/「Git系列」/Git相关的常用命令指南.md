@@ -223,7 +223,66 @@ git diff branch1 branch2 文件命（路径） // 显示指定文件的详细差
 git diff branch1 branch2 // 显示出所有有差异的文件的详细差异
 ```
 
+### 9、为git添加代理
 
+#### 全局代理
+最简单的方法就是在用户文件夹找到`.gitconfig`文件，添加代理如下：
+```
+[http]
+	proxy = socks5://127.0.0.1:10808
+[https]
+	proxy = socks5://127.0.0.1:10808
+```
+上面是添加socks5代理，如果要添加http的话，直接去掉socks5://
+
+如果你需要命令添加全局代理，这样操作
+```
+http代理：
+git config --global https.proxy http://127.0.0.1:10800
+git config --global https.proxy https://127.0.0.1:10800
+
+socks5代理：
+git config --global http.proxy 'socks5://127.0.0.1:10800'
+git config --global https.proxy 'socks5://127.0.0.1:10800'
+```
+
+查询全局代理
+```
+git config --global http.proxy
+```
+
+取消全局代理
+```
+git config --global --unset http.proxy
+
+git config --global --unset https.proxy
+```
+
+#### 局部代理
+如果你只是想给某个单独的项目添加代理的话
+```
+http代理：
+git config --local https.proxy http://127.0.0.1:10800
+git config --local https.proxy https://127.0.0.1:10800
+
+socks5代理：
+git config --local http.proxy 'socks5://127.0.0.1:10800'
+git config --local https.proxy 'socks5://127.0.0.1:10800'
+```
+
+查询局部代理
+```
+git config --local http.proxy
+
+git config --local https.proxy
+```
+
+取消局部代理
+```
+git config --local --unset http.proxy
+
+git config --local --unset https.proxy
+```
 
 [1]: git%E9%87%8C%E9%9D%A2%E9%87%8D%E8%A6%81%E6%A6%82%E5%BF%B5--%E5%88%86%E6%94%AF%EF%BC%88%E5%85%B7%E4%BD%93%E6%A6%82%E5%BF%B5%E5%8F%82%E8%80%83%E6%95%99%E7%A8%8B%EF%BC%9Ahttps://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/001375840038939c291467cc7c747b1810aab2fb8863508000%EF%BC%89
 [2]: %E5%85%B7%E4%BD%93%E6%93%8D%E4%BD%9C%E8%A7%81%E6%95%99%E7%A8%8B%EF%BC%9Ahttps://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/001375840202368c74be33fbd884e71b570f2cc3c0d1dcf000
