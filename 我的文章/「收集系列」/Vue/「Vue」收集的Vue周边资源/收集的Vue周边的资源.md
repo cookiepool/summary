@@ -30,6 +30,11 @@ Vue全家桶+Vant 搭建大型单页面电商项目
 
 [链接地址](https://github.com/Geek-James/ddBuy)
 
+## mall
+mall项目是一套电商系统，包括前台商城系统及后台管理系统
+
+[链接地址](https://github.com/macrozheng/mall)
+
 # 配置、工具等
 ## vue-cli4-config
 这个资源主要涵盖了一些常用的配置（基于Vue CLI 4），有自定义配置的可以用来参考。
