@@ -196,7 +196,7 @@ git remote prune origin
 #### 6、本地仓库和远端仓库建立连接
 
 ```
-git branch --set-upstream-to=origin/<branch> feature/dev-workbench
+git branch --set-upstream-to=origin/<branch>
 ```
 
 比如我本地的dev-workbench分支跟远端dev-workbench建立链接。
