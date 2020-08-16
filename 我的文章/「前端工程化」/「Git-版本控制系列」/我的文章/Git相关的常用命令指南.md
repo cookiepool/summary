@@ -59,7 +59,7 @@ git reset --hard HEAD^ // 回退到上一个版本
 ```
 
 ### 7、查看回退记录
-git reflog 可以查看所有分支的所有操作记录（包括（包括commit和reset的操作），包括已经被删除的commit记录，git log则不能察看已经删除了的commit记录
+git reflog 可以查看所有分支的所有操作记录（包括（包括commit和reset的操作），包括已经被删除的commit记录，git log则不能查看已经删除了的commit记录
 
 ```
 git reflog
@@ -93,7 +93,7 @@ eg: git diff HEAD -- readme.txt
 git checkout -- 文件名
 eg: git checkout -- readme.txt  // 把readme.txt文件在工作区的修改全部撤销
 
-git restore 文件命
+git restore 文件名
 eg: git restore readme.md
 ```
 
@@ -250,10 +250,8 @@ git push origin dev
 ---
 ### 补充
 #### 1、将本地分支推送到远程仓库
-```
-git push --set-upstream origin 分支名
-eg: git push --set-upstream origin dev
-```
+> `git push --set-upstream origin 分支名`
+> `eg: git push --set-upstream origin dev`
 
 #### 2、将本地代码推送到远端仓库（首次推送）
 
