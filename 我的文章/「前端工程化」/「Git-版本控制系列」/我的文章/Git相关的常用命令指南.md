@@ -331,6 +331,8 @@ git diff branch1 branch2 // 显示出所有有差异的文件的详细差异
 
 ### 9、为git添加代理
 
+> 设置局部代理还有一个最简单的方法就是在隐藏的`.git`文件夹下有一个`config`文件，里面就可以设置针对本项目的局部代理。
+
 #### 全局代理
 最简单的方法就是在用户文件夹找到`.gitconfig`文件，添加代理如下：
 ```
@@ -389,6 +391,105 @@ git config --local --unset http.proxy
 
 git config --local --unset https.proxy
 ```
+
+#### 使用反悔操作
+##### 修改的内容还在工作区（未执行add命令）
+
+查看所有修改的文件的具体修改内容：
+
+```
+git diff
+
+// 指定文件
+git diff 文件命 或者 git diff -- 文件名
+eg: git diff lala.txt
+```
+
+
+
+如果你修改了一些文件代码，但是现在想全部撤销掉修改，可以使用这个命令：
+```
+git checkout -- .
+```
+
+这样会把所有你修改过的文件全部撤销，这个撤销没有反悔操作。如果你只想撤销指定的文件，指定一下文件即可：
+
+```
+git checkout -- 文件名
+eg: git checkout -- lala.txt
+```
+
+#### 执行了add命令
+
+我们执行了add命令后想取消掉add操作怎么办呢
+
+首先查看修改了什么需要使用这个命令，上面的diff命令不显示修改，加一个参数：
+
+```
+git diff --staged
+
+// 具体某个文件
+git diff --staged 文件命
+```
+
+然后使用以下命令来取消所有暂存文件：
+
+```
+git reset .
+
+// 具体某个文件
+git reset 文件名 或者 git reset -- 文件名
+```
+
+然后你还想撤销文件的修改的话，再执行上面示例的checkout命令即可，不想分开操作的话可以直接使用以下命令，然后就能一劳永逸，全部撤销：
+
+```
+git reset --hard
+
+// 等效于
+git reset .
+git checkout -- .
+```
+
+#### 修改的代码已经提到了本地仓库
+
+如果我们的代码提交到了本地仓库（执行了commit命令）的话，可以先使用这个命名查看最近的commit ID：
+
+```
+git log
+```
+
+在打印输出的一列列的log信息里面选择你想要回滚到的地方，执行以下命令：
+
+```
+git checkout '提交ID'
+eg: git checkout 537d5822b8eaf334c1fe18397fd5d03580fe64d3
+```
+
+还有一种快捷的方式，不需要去查Commit ID，但是需要你自己知道想回到第几的位置，比如
+
+```
+git reset --hard HEAD^ // 回到上一个版本
+git reset --hard HEAD^^ // 回到上上一个版本
+git reset --hard HEAD~2 // 回到上上一个版本
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 [1]: git%E9%87%8C%E9%9D%A2%E9%87%8D%E8%A6%81%E6%A6%82%E5%BF%B5--%E5%88%86%E6%94%AF%EF%BC%88%E5%85%B7%E4%BD%93%E6%A6%82%E5%BF%B5%E5%8F%82%E8%80%83%E6%95%99%E7%A8%8B%EF%BC%9Ahttps://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/001375840038939c291467cc7c747b1810aab2fb8863508000%EF%BC%89
 [2]: %E5%85%B7%E4%BD%93%E6%93%8D%E4%BD%9C%E8%A7%81%E6%95%99%E7%A8%8B%EF%BC%9Ahttps://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/001375840202368c74be33fbd884e71b570f2cc3c0d1dcf000
