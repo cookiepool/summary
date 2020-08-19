@@ -405,11 +405,13 @@ git diff 文件命 或者 git diff -- 文件名
 eg: git diff lala.txt
 ```
 
-
+> 下面的命令都是建立在文件不是第一次建立的情况，比如你才在工作区新建的一个文件，还没做过任何add或commit操作，那么下面的命令不起作用
 
 如果你修改了一些文件代码，但是现在想全部撤销掉修改，可以使用这个命令：
 ```
 git checkout -- .
+或者
+git restore -- .
 ```
 
 这样会把所有你修改过的文件全部撤销，这个撤销没有反悔操作。如果你只想撤销指定的文件，指定一下文件即可：
@@ -417,6 +419,9 @@ git checkout -- .
 ```
 git checkout -- 文件名
 eg: git checkout -- lala.txt
+或者
+git restore 文件命
+eg: git restore lala.txt
 ```
 
 #### 执行了add命令
@@ -462,6 +467,10 @@ git log
 在打印输出的一列列的log信息里面选择你想要回滚到的地方，执行以下命令：
 
 ```
+// 注意我在git版本为2.23.0的windows版本上发现用checkout不好使，它会把它切换到commit id下，类似于分支切换那种
+// 这里建议使用git reset --hard Commit ID
+eg: git reset --hard 537d5822b8eaf334c1fe18397fd5d03580fe64d3
+
 git checkout '提交ID'
 eg: git checkout 537d5822b8eaf334c1fe18397fd5d03580fe64d3
 ```
@@ -472,12 +481,32 @@ eg: git checkout 537d5822b8eaf334c1fe18397fd5d03580fe64d3
 git reset --hard HEAD^ // 回到上一个版本
 git reset --hard HEAD^^ // 回到上上一个版本
 git reset --hard HEAD~2 // 回到上上一个版本
-
 ```
 
+- 注：这个方式可以进行二次反悔操作，使用`git reflog`，查看返回对应的的你反悔的Commit ID
 
+```
+2e76643 (HEAD -> master) HEAD@{0}: reset: moving to HEAD^
+4d27340 HEAD@{1}: commit: second
+2e76643 (HEAD -> master) HEAD@{2}: commit (initial): first
+```
 
+比如上面这串使用git reflog打印的commit信息，可以看出来我们执行的反悔记录时`2e76643 (HEAD -> master) HEAD@{0}: reset: moving to HEAD^`，如果我们对我们的反悔操作反悔了，那么要回去，执行以下代码即可：
 
+```
+git reset --hard 4d27340
+```
+
+#### 重命名分支名
+
+```
+git branch 旧分支名 新分支名
+eg: git branch dev-1 dev
+```
+
+#### git rebase
+
+............待续
 
 
 
