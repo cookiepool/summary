@@ -35,6 +35,11 @@ mall项目是一套电商系统，包括前台商城系统及后台管理系统
 
 [链接地址](https://github.com/macrozheng/mall)
 
+## newbee-mall-vue-app
+newbee-mall 项目是一套电商系统，包括 newbee-mall 商城系统及 newbee-mall-admin 商城后台管理系统，基于 Spring Boot 2.X 及相关技术栈开发。
+
+[链接地址](https://github.com/newbee-ltd/newbee-mall-vue-app)
+
 # 配置、工具等
 ## vue-cli4-config
 这个资源主要涵盖了一些常用的配置（基于Vue CLI 4），有自定义配置的可以用来参考。
