@@ -130,7 +130,7 @@ git clone 远程地址
 eg: git clone git@github.com:michaelliao/gitskills.git
 ```
 
-git里面重要概念--分支（具体概念参考教程：[廖雪峰教程-分支][1]
+git里面重要概念--分支（具体概念参考教程：廖雪峰教程-分支)
 ---
 ### 14、创建分支
 比如我们要创建dev分支：
@@ -172,8 +172,6 @@ git branch -D dev // 强制删除dev分支
 
 ### 18、分支合并冲突
 > 一般来说在合并分支时与master存在冲突的情况下只能手动去把文件修改一致才行。合并过程冲突的话，可以使用cat 文件名来查看冲突的内容，冲突部分会用<<<<<<< HEAD这样的字样标注。
----
-具体操作教程：[分支合并冲突][2]
 ### 19、分支管理策略
 前面的分支操作属于Fast Forward模式，这种模式下，删除分支后，会丢掉分支信息，接下来不使用这种模式。
 使用这个模式的其它操作几乎都一样，只是在合并的时候加一个参数和一个commit信息。如下：
@@ -232,7 +230,6 @@ git push origin dev
 ```
 
 #### 25、多人协作开发
-这个参考教程，比较详细：[多人协作开发][3]
 总结为以下几步：
 ```
 查看远程库信息，使用git remote -v；
@@ -392,8 +389,8 @@ git config --local --unset http.proxy
 git config --local --unset https.proxy
 ```
 
-#### 使用反悔操作
-##### 修改的内容还在工作区（未执行add命令）
+### 10、使用反悔操作
+#### 修改的内容还在工作区（未执行add命令）
 
 查看所有修改的文件的具体修改内容：
 
@@ -509,17 +506,48 @@ eg: git branch dev-1 dev
 ............待续
 
 
+### 11、打tag
+一般来说，打tag都是在master分支下
 
+```
+// 显示所有tag
+git tag
 
+// 加上-l命令可以使用通配符来过滤tag
+git tag -l "v3.3.*"  // 可以把v3.3开头的tag筛选出来
 
+// 新建tag
+git tag tag名
+eg: git tag v1.0.0
 
+// 加上-a参数来创建一个带备注的tag，备注信息由-m指定
+git tag -a tag名 -m 备注
+eg: git tag -a v1.0.0 -m 'v1.0.0版本'
 
+// git show命令可以查看tag的详细信息，包括commit号等
+git show tag名
+eg: git show v1.0.0
 
+// 切换到当前tag
+git checkout tag名
+eg: git checkout v1.0.0
 
+// 推送tag到远端
+git push origin tag名
+eg: git push origin v1.0.0
 
+// 删除本地tag
+git tag -d tag名
+eg: git tag -d v1.0.0
 
+// 删除远端tag
+git push origin :refs/tags/<tagName>
+eg: git push origin :refs/tags/v1.0.0
 
+git push origin --delete <tagname>
+eg: git push origin --delete v1.0.0
+```
 
-[1]: git%E9%87%8C%E9%9D%A2%E9%87%8D%E8%A6%81%E6%A6%82%E5%BF%B5--%E5%88%86%E6%94%AF%EF%BC%88%E5%85%B7%E4%BD%93%E6%A6%82%E5%BF%B5%E5%8F%82%E8%80%83%E6%95%99%E7%A8%8B%EF%BC%9Ahttps://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/001375840038939c291467cc7c747b1810aab2fb8863508000%EF%BC%89
-[2]: %E5%85%B7%E4%BD%93%E6%93%8D%E4%BD%9C%E8%A7%81%E6%95%99%E7%A8%8B%EF%BC%9Ahttps://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/001375840202368c74be33fbd884e71b570f2cc3c0d1dcf000
-[3]: https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/0013760174128707b935b0be6fc4fc6ace66c4f15618f8d000
+## 参考资料
+
+地址：https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%85%B3%E4%BA%8E%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6
