@@ -69,16 +69,12 @@ hotfix叫热修复分支，除了是计划外创建的以外，hotfix分支与re
 - master被合并后，应该被标记一个新的版本号
 - hotfix分支一旦建立就将独立，不可再从其他分支pull代码
 
-# Github flow工作流程
-.........待续..........
-
 # 参考资料
-[GitFlow流程](https://www.jianshu.com/p/4948dc76c52c)
 
-[Gitflow工作流程](https://www.cnblogs.com/jeffery-zou/p/10280167.html)
+Git Flow 使用经验总结：https://segmentfault.com/a/1190000017800324
 
-[团队协作中的 Github flow 工作流程](https://zhuanlan.zhihu.com/p/39148914)
+Git分支管理策略：http://www.ruanyifeng.com/blog/2012/07/git.html
 
-[Git分支管理策略](http://www.ruanyifeng.com/blog/2012/07/git.html)
+Gitflow工作流程：https://www.cnblogs.com/jeffery-zou/p/10280167.html
 
-[Git 工作流程](http://www.ruanyifeng.com/blog/2015/12/git-workflow.html)
+Git Flow 的正确使用姿势：https://www.jianshu.com/p/41910dc6ef29
