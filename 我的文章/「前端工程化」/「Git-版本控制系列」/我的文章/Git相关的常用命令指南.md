@@ -548,6 +548,13 @@ git push origin --delete <tagname>
 eg: git push origin --delete v1.0.0
 ```
 
+## 12、当两个分支信息区别大是无法合并
+如果你的两个分支信息差别特别大，git是不允许你合并的，解决办法是加一个参数`--allow-unrelated-histories`
+```
+git merge dev --allow-unrelated-histories
+```
+这样就可以合并两个差别比较大的分支信息了。
+
 ## 参考资料
 
 地址：https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%85%B3%E4%BA%8E%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6

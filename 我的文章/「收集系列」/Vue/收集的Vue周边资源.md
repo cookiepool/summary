@@ -40,6 +40,11 @@ newbee-mall 项目是一套电商系统，包括 newbee-mall 商城系统及 new
 
 [链接地址](https://github.com/newbee-ltd/newbee-mall-vue-app)
 
+## YesPlayMusic
+高颜值的第三方网易云播放器
+
+[链接地址](https://github.com/qier222/YesPlayMusic)
+
 # 配置、工具等
 ## vue-cli4-config
 这个资源主要涵盖了一些常用的配置（基于Vue CLI 4），有自定义配置的可以用来参考。
