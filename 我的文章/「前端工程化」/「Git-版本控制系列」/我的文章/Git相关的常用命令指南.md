@@ -555,6 +555,12 @@ git merge dev --allow-unrelated-histories
 ```
 这样就可以合并两个差别比较大的分支信息了。
 
+## 13、合并前看两个分支是否有没合并的差异
+查看 dev 有，而 master 中没有的
+```
+git log dev ^master 
+```
+
 ## 参考资料
 
 地址：https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%85%B3%E4%BA%8E%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6
